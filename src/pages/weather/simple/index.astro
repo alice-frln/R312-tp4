@@ -1,25 +1,24 @@
 ---
-import Layout from "../../layouts/Layout.astro";
+import Layout from "../../../layouts/Layout.astro";
 ---
 
 <Layout>
   <main class="mx-auto max-w-5xl p-8">
-    <h1 class="text-2xl font-bold">Weather</h1>
-    <p class="mt-2">Choisissez un essai météo.</p>
-
-    <nav aria-label="Essais Weather" class="mt-6">
-      <ul class="list-disc pl-6">
-        <li><a href="/weather/simple">Weather simple</a></li>
-        <li><a href="/weather-filter">Weather avec filtres</a></li>
-      </ul>
+    <nav aria-label="Navigation des essais" class="mb-8">
+      <a href="/weather">Weather</a>
+      <span aria-hidden="true"> / </span>
+      <a href="/weather/simple" aria-current="page">Weather simple</a>
     </nav>
+
+    <h1 class="text-2xl font-bold">Weather simple</h1>
+    <p class="mt-2">Températures à Seattle à partir du dataset Weather.</p>
+    <div id="myplot" class="mt-6" aria-label="Températures à Seattle"></div>
   </main>
 </Layout>
 
-
 <script>
   import * as Plot from "@observablehq/plot";
-  import weather from "../../assets/weather.json";
+  import weather from "../../../assets/weather.json";
 
   const plot = Plot.plot({
     y: { grid: true, label: "Température (°C)" },
