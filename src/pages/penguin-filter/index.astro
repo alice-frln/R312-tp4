@@ -1,0 +1,62 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout>
+  <main class="mx-auto max-w-5xl p-8">
+    <nav aria-label="Navigation des essais" class="mb-8">
+      <a href="/">Sommaire</a>
+      <span aria-hidden="true"> / </span>
+      <a href="/penguin-filter" aria-current="page">Penguin avec filtre</a>
+    </nav>
+
+    <h1 class="text-2xl font-bold">Penguin avec filtre</h1>
+    <label for="species" class="mt-6 block">
+      Espèce
+      <select name="species" id="species">
+        <option value="">All species</option>
+        <option value="Adelie">Adelie</option>
+        <option value="Chinstrap">Chinstrap</option>
+        <option value="Gentoo">Gentoo</option>
+      </select>
+    </label>
+    <div id="myplot" class="mt-6" aria-label="Graphique filtré des manchots"></div>
+  </main>
+</Layout>
+
+<script>
+  import * as Plot from "@observablehq/plot";
+  import penguins from "../../assets/penguins.json";
+
+  const selectSpecies = document.querySelector<HTMLSelectElement>("#species");
+
+  function renderPlot() {
+    const plotContainer = document.querySelector<HTMLDivElement>("#myplot");
+
+    if (!selectSpecies || !plotContainer) {
+      return;
+    }
+
+    const species = selectSpecies.value;
+    const filteredPenguins = species
+      ? penguins.filter((penguin) => penguin.species === species)
+      : penguins;
+
+    plotContainer.innerHTML = "";
+
+    const plot = Plot.plot({
+      marks: [
+        Plot.dot(filteredPenguins, {
+          x: "culmen_length_mm",
+          y: "culmen_depth_mm",
+          stroke: "species",
+        }),
+      ],
+    });
+
+    plotContainer.append(plot);
+  }
+
+  selectSpecies?.addEventListener("change", renderPlot);
+  renderPlot();
+</script>
