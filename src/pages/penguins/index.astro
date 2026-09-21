@@ -1,18 +1,30 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import penguinImage from "../../assets/penguins_1.jpg";
 ---
 
 <Layout>
-  <main class="mx-auto max-w-5xl p-8">
-    <h1 class="text-2xl font-bold">Penguins</h1>
-    <p class="mt-2">Choisissez un essai sur les manchots.</p>
+  <main class="mx-auto max-w-6xl px-6 pb-16 pt-28 sm:px-10">
+    <section class="relative min-h-[25rem] overflow-hidden rounded-[2rem] bg-[#17324d] p-8 sm:p-12">
+      <img src={penguinImage.src} alt="Deux manchots sur une côte glacée" class="absolute inset-0 h-full w-full object-cover opacity-70" />
+      <div class="absolute inset-0 bg-gradient-to-r from-[#102c44] via-[#102c44]/55 to-transparent"></div>
+      <div class="relative max-w-lg text-white">
+        <p class="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-100">Collection 01</p>
+        <h1 class="mt-4 font-display text-5xl leading-none sm:text-6xl">Penguins</h1>
+        <p class="mt-5 leading-7 text-slate-100">Un petit laboratoire pour comparer les espèces, les îles et les profils des manchots.</p>
+      </div>
+    </section>
 
-    <nav aria-label="Essais Penguins" class="mt-6">
-      <ul class="list-disc pl-6">
-        <li><a href="/simple-penguin">Simple Penguin</a></li>
-        <li><a href="/penguin-filter">Penguin avec filtre</a></li>
-        <li><a href="/penguin-filters">Penguin avec plusieurs filtres</a></li>
-      </ul>
+    <nav aria-label="Essais Penguins" class="mt-10 grid gap-4 sm:grid-cols-3">
+      <a href="/simple-penguin" class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 hover:-translate-y-1 hover:shadow-lg">
+        <span class="text-sm font-semibold text-[#087f8c]">01</span><h2 class="mt-8 font-display text-2xl">Simple Penguin</h2><p class="mt-2 text-sm leading-6 text-slate-600">Le nuage de points de départ.</p>
+      </a>
+      <a href="/penguin-filter" class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 hover:-translate-y-1 hover:shadow-lg">
+        <span class="text-sm font-semibold text-[#b35b2a]">02</span><h2 class="mt-8 font-display text-2xl">Une espèce</h2><p class="mt-2 text-sm leading-6 text-slate-600">Filtrer le graphique par espèce.</p>
+      </a>
+      <a href="/penguin-filters" class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 hover:-translate-y-1 hover:shadow-lg">
+        <span class="text-sm font-semibold text-[#547b9e]">03</span><h2 class="mt-8 font-display text-2xl">Plusieurs filtres</h2><p class="mt-2 text-sm leading-6 text-slate-600">Croiser espèce, île et sexe.</p>
+      </a>
     </nav>
   </main>
 </Layout>

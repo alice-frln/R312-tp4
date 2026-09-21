@@ -1,1 +1,32 @@
 @import "tailwindcss";
+
+@theme {
+	--font-display: "Georgia", "Times New Roman", serif;
+	--font-body: "Trebuchet MS", "Segoe UI", sans-serif;
+}
+
+:root {
+	color: #17324d;
+	background: #f3f7f8;
+	font-family: var(--font-body);
+}
+
+body {
+	min-width: 320px;
+	background:
+		radial-gradient(circle at 10% 0%, rgba(181, 219, 224, 0.45), transparent 28rem),
+		#f3f7f8;
+}
+
+a {
+	transition: color 180ms ease, opacity 180ms ease;
+}
+
+a:hover {
+	color: #087f8c;
+}
+
+::selection {
+	color: #f3f7f8;
+	background: #087f8c;
+}

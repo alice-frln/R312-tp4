@@ -1,10 +1,44 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import homepage from "../assets/homepage.jpg";
 ---
 
 <Layout>
-  <main class="mx-auto max-w-5xl p-8">
-    <h1 class="text-2xl font-bold">TD Observable Plot</h1>
-    <p class="mt-2">Utilisez le menu pour accéder aux différents essais.</p>
+  <main>
+    <section class="relative isolate flex min-h-[88vh] items-end overflow-hidden bg-[#123653] px-6 pb-14 pt-32 sm:px-10 sm:pb-20">
+      <img src={homepage.src} alt="Paysage de montagnes enneigées" class="absolute inset-0 -z-20 h-full w-full object-cover" />
+      <div class="absolute inset-0 -z-10 bg-[linear-gradient(110deg,rgba(8,39,62,.82),rgba(8,39,62,.2)_65%,rgba(8,39,62,.35))]"></div>
+      <div class="relative mx-auto w-full max-w-6xl">
+        <p class="mb-5 text-sm font-semibold uppercase tracking-[0.28em] text-cyan-100">TD • data visualisation</p>
+        <h1 class="max-w-3xl font-display text-5xl leading-[.98] tracking-tight text-white sm:text-7xl">Lire le monde dans les données.</h1>
+        <p class="mt-6 max-w-xl text-base leading-7 text-slate-100 sm:text-lg">Une collection d’expériences interactives avec Observable Plot, des manchots de l’Antarctique aux caprices de la météo.</p>
+        <div class="mt-9 flex flex-wrap gap-3">
+          <a href="/penguins" class="rounded-full bg-white px-5 py-3 text-sm font-semibold text-[#123653] hover:bg-cyan-100">Explorer Penguins</a>
+          <a href="/weather" class="rounded-full border border-white/60 px-5 py-3 text-sm font-semibold text-white hover:bg-white/15 hover:text-white">Explorer Weather</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto grid max-w-6xl gap-6 px-6 py-14 sm:grid-cols-3 sm:px-10 sm:py-20">
+      <div class="sm:col-span-3">
+        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-[#087f8c]">Le parcours</p>
+        <h2 class="mt-2 font-display text-4xl text-[#17324d]">Trois façons de regarder.</h2>
+      </div>
+      <a href="/simple" class="group border-t-2 border-[#087f8c] pt-5">
+        <span class="text-sm text-[#087f8c]">01 / départ</span>
+        <h3 class="mt-3 font-display text-2xl">Simple</h3>
+        <p class="mt-2 text-sm leading-6 text-slate-600">Comprendre le geste essentiel : créer un graphique et l’insérer dans la page.</p>
+      </a>
+      <a href="/penguins" class="group border-t-2 border-[#e58b55] pt-5">
+        <span class="text-sm text-[#b35b2a]">02 / observer</span>
+        <h3 class="mt-3 font-display text-2xl">Penguins</h3>
+        <p class="mt-2 text-sm leading-6 text-slate-600">Comparer les espèces et faire parler plusieurs filtres.</p>
+      </a>
+      <a href="/weather" class="group border-t-2 border-[#547b9e] pt-5">
+        <span class="text-sm text-[#547b9e]">03 / explorer</span>
+        <h3 class="mt-3 font-display text-2xl">Weather</h3>
+        <p class="mt-2 text-sm leading-6 text-slate-600">Suivre les températures et isoler les conditions météo.</p>
+      </a>
+    </section>
   </main>
 </Layout>
