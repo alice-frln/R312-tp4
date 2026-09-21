@@ -38,18 +38,15 @@ import Layout from "../../layouts/Layout.astro";
     }
 
     const species = selectSpecies.value;
-    const filteredPenguins = species
-      ? penguins.filter((penguin) => penguin.species === species)
-      : penguins;
-
     plotContainer.innerHTML = "";
 
     const plot = Plot.plot({
       marks: [
-        Plot.dot(filteredPenguins, {
+        Plot.dot(penguins, {
           x: "culmen_length_mm",
           y: "culmen_depth_mm",
           stroke: "species",
+          filter: (penguin) => !species || penguin.species === species,
         }),
       ],
     });
