@@ -1,0 +1,93 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout>
+  <main class="mx-auto max-w-5xl p-8">
+    <nav aria-label="Navigation des essais" class="mb-8">
+      <a href="/">Sommaire</a>
+      <span aria-hidden="true"> / </span>
+      <a href="/weather-filter" aria-current="page">Weather avec filtres</a>
+    </nav>
+
+    <h1 class="text-2xl font-bold">Weather avec filtres</h1>
+
+    <div class="mt-6 flex flex-wrap gap-4">
+      <label for="location">
+        Ville
+        <select name="location" id="location">
+          <option value="">Toutes les villes</option>
+          <option value="Seattle">Seattle</option>
+          <option value="New York">New York</option>
+        </select>
+      </label>
+
+      <label for="weather">
+        Météo
+        <select name="weather" id="weather">
+          <option value="">Toutes les météos</option>
+          <option value="drizzle">drizzle</option>
+          <option value="rain">rain</option>
+          <option value="sun">sun</option>
+          <option value="snow">snow</option>
+          <option value="fog">fog</option>
+        </select>
+      </label>
+    </div>
+
+    <div id="myplot" class="mt-6" aria-label="Températures filtrées"></div>
+  </main>
+</Layout>
+
+<script>
+  import * as Plot from "@observablehq/plot";
+  import weatherData from "../../assets/weather.json";
+
+  const selectLocation = document.querySelector<HTMLSelectElement>("#location");
+  const selectWeather = document.querySelector<HTMLSelectElement>("#weather");
+
+  function renderPlot() {
+    const plotContainer = document.querySelector<HTMLDivElement>("#myplot");
+
+    if (!selectLocation || !selectWeather || !plotContainer) {
+      return;
+    }
+
+    const location = selectLocation.value;
+    const weather = selectWeather.value;
+
+    plotContainer.innerHTML = "";
+
+    const plot = Plot.plot({
+      y: { grid: true, label: "Température (°C)" },
+      color: { legend: true },
+      marks: [
+        Plot.line(weatherData, {
+          x: "date",
+          y: "temp_max",
+          stroke: "weather",
+          filter: (entry) =>
+            (!location || entry.location === location) &&
+            (!weather || entry.weather === weather),
+          tip: true,
+        }),
+        Plot.line(weatherData, {
+          x: "date",
+          y: "temp_min",
+          stroke: "weather",
+          strokeDasharray: "4,4",
+          filter: (entry) =>
+            (!location || entry.location === location) &&
+            (!weather || entry.weather === weather),
+          tip: true,
+        }),
+      ],
+    });
+
+    plotContainer.append(plot);
+  }
+
+  selectLocation?.addEventListener("change", renderPlot);
+  selectWeather?.addEventListener("change", renderPlot);
+  renderPlot();
+</script>
