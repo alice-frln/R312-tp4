@@ -1,21 +1,49 @@
 ---
-import PlotFigure from "../components/PlotFigure.astro";
 import Layout from "../layouts/Layout.astro";
-import * as Plot from "@observablehq/plot";
-import penguins from "../assets/penguins.json";
 ---
 
 <Layout>
-  <h1 class="text-2xl">Test Astro et Plot (Observablehq)</h1>
-  <PlotFigure
-    options={{
-      marks: [
-        Plot.dot(penguins, {
-          x: "culmen_length_mm",
-          y: "culmen_depth_mm",
-          stroke: "species",
-        }),
-      ],
-    }}
-  />
+  <main class="mx-auto max-w-5xl p-8">
+    <nav aria-label="Navigation des essais" class="mb-8">
+      <a href="/" aria-current="page">Simple</a>
+    </nav>
+
+    <h1 class="text-2xl font-bold">Graphique simple avec Observable Plot</h1>
+    <label for="bar-count" class="mt-6 block">
+      Nombre de barres
+      <input id="bar-count" type="number" min="1" max="50" value="20" />
+    </label>
+    <div id="plot" class="mt-6" aria-label="Graphique en barres aléatoires"></div>
+  </main>
 </Layout>
+
+<script>
+  import * as Plot from "@observablehq/plot";
+
+  function renderPlot() {
+    const barCountInput = document.querySelector<HTMLInputElement>("#bar-count");
+    const plotContainer = document.querySelector<HTMLDivElement>("#plot");
+
+    if (!barCountInput || !plotContainer) {
+      return;
+    }
+
+    const barCount = Number(barCountInput.value);
+    plotContainer.innerHTML = "";
+
+    const plot = Plot.plot({
+      marks: [
+        Plot.barY(
+          Array.from({ length: barCount }, () => Math.random()),
+          { x: (_, index) => index, y: (value) => value },
+        ),
+      ],
+    });
+
+    plotContainer.append(plot);
+  }
+
+  document.querySelector<HTMLInputElement>("#bar-count")?.addEventListener("change", renderPlot);
+
+  renderPlot();
+</script>
