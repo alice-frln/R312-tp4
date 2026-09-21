@@ -1,0 +1,44 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout>
+  <main class="mx-auto max-w-5xl p-8">
+    <nav aria-label="Navigation des essais" class="mb-8">
+      <a href="/">Sommaire</a>
+      <span aria-hidden="true"> / </span>
+      <a href="/weather" aria-current="page">Weather</a>
+    </nav>
+
+    <h1 class="text-2xl font-bold">Weather</h1>
+    <p class="mt-2">Températures à Seattle à partir du dataset Weather.</p>
+    <div id="myplot" class="mt-6" aria-label="Températures à Seattle"></div>
+  </main>
+</Layout>
+
+<script>
+  import * as Plot from "@observablehq/plot";
+  import weather from "../../assets/weather.json";
+
+  const plot = Plot.plot({
+    y: { grid: true, label: "Température (°C)" },
+    color: { legend: true },
+    marks: [
+      Plot.line(weather, {
+        x: "date",
+        y: "temp_max",
+        stroke: "weather",
+        tip: true,
+      }),
+      Plot.line(weather, {
+        x: "date",
+        y: "temp_min",
+        stroke: "weather",
+        strokeDasharray: "4,4",
+        tip: true,
+      }),
+    ],
+  });
+  const div = document.querySelector<HTMLDivElement>("#myplot");
+  div?.append(plot);
+</script>
