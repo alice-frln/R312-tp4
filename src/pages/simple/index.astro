@@ -1,0 +1,28 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout>
+  <main class="mx-auto max-w-5xl p-8">
+    <nav aria-label="Navigation des essais" class="mb-8">
+      <a href="/">Sommaire</a>
+      <span aria-hidden="true"> / </span>
+      <a href="/simple" aria-current="page">Simple</a>
+    </nav>
+
+    <h1 class="text-2xl font-bold">Simple</h1>
+    <p class="mt-2">Premier graphique généré côté client avec Observable Plot.</p>
+    <div id="myplot" class="mt-6" aria-label="Histogramme de valeurs aléatoires"></div>
+  </main>
+</Layout>
+
+<script>
+  import * as Plot from "@observablehq/plot";
+
+  const plot = Plot.rectY(
+    { length: 10000 },
+    Plot.binX({ y: "count" }, { x: Math.random }),
+  ).plot();
+  const div = document.querySelector<HTMLDivElement>("#myplot");
+  div?.append(plot);
+</script>
